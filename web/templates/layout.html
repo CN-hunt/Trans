@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap-3.4.1-dist' %}">
+</head>
+<body>
+
+{% block content %}{% endblock %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>Hello, world!</h1>
+        <p>...</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    </div>
+</div>
+
+<script src="{% static 'JS/jquery-3.7.1.min.js' %}"></script>
+</body>
+
+</html>
