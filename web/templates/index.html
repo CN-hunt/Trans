@@ -1,5 +1,144 @@
 {% extends 'layout.html' %}
 
+{% block CSS %}
+    <style>
+        .upload-container {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .welcome-text {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .upload-area {
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .upload-area:hover {
+            border-color: #3498db;
+            background: #e3f2fd;
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .btn-upload {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            color: white;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-upload:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .supported-formats {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
-	<span>翻译项目启动</span>
+    <div class="upload-container">
+        <h1 class="welcome-text">漫画文本翻译工具</h1>
+
+        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+            <div class="upload-icon">
+                📁
+            </div>
+            <div class="upload-text">
+                点击选择图片或拖拽到此处
+            </div>
+            <button class="btn btn-upload">
+                选择文件
+            </button>
+            <input type="file" id="fileInput" class="file-input" accept=".png,.jpg,.jpeg,.webp">
+
+            <div class="supported-formats">
+                支持格式: PNG, JPG, JPEG, WebP
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block JS %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fileInput = document.getElementById('fileInput');
+            const uploadArea = document.querySelector('.upload-area');
+
+            // 文件选择处理
+            fileInput.addEventListener('change', function (e) {
+                if (e.target.files.length > 0) {
+                    const fileName = e.target.files[0].name;
+                    alert(`已选择文件: ${fileName}\n\n开始处理...`);
+                    // 这里后续会添加文件上传逻辑
+                }
+            });
+
+            // 拖拽功能
+            uploadArea.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                this.style.borderColor = '#3498db';
+                this.style.background = '#e3f2fd';
+            });
+
+            uploadArea.addEventListener('dragleave', function (e) {
+                e.preventDefault();
+                this.style.borderColor = '#dee2e6';
+                this.style.background = '#f8f9fa';
+            });
+
+            uploadArea.addEventListener('drop', function (e) {
+                e.preventDefault();
+                this.style.borderColor = '#dee2e6';
+                this.style.background = '#f8f9fa';
+
+                if (e.dataTransfer.files.length > 0) {
+                    fileInput.files = e.dataTransfer.files;
+                    const fileName = e.dataTransfer.files[0].name;
+                    alert(`已拖拽文件: ${fileName}\n\n开始处理...`);
+                    // 这里后续会添加文件上传逻辑
+                }
+            });
+        });
+
+    </script>
 {% endblock %}
